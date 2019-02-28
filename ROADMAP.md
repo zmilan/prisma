@@ -43,7 +43,7 @@ Here are the big features that are currently being specced out:
 
 ### Implementation phase
 
-The "implementation phase" reflexcts the larger features we are currently working on. These features typically require multiple weeks/months to be implemented:
+The "implementation phase" reflects the larger features we are currently working on. These features typically require multiple weeks/months to be implemented:
 
 - [Prisma Admin](https://github.com/prisma/prisma-admin-feedback)
 - [Datamodel v1.1](https://github.com/prisma/prisma/issues/3408)
