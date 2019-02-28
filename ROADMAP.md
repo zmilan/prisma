@@ -38,7 +38,7 @@ Here are the big features that are currently being specced out:
 
 - [A more fine-grained and powerful migration system](https://github.com/prisma/rfcs/blob/migrations/text/0000-migrations.md)
 - [An aggregations API](https://github.com/prisma/rfcs/blob/prisma-basic-aggregation-support/text/0000-prisma-basic-aggregation-support.md)
-- [A more powerful API for the Prisma client](https://github.com/prisma/rfcs/blob/prisma-basic-aggregation-support/text/0000-prisma-basic-aggregation-support.md)
+- [A more powerful API for the Prisma client](https://github.com/prisma/rfcs/blob/new-ts-client-rfc/text/0000-new-ts-client.md)
 - [A new generator API for the Prisma client](https://github.com/prisma/rfcs/blob/client-generators/text/0000-client-generators.md)
 
 ### Implementation phase
