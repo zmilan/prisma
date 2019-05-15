@@ -208,3 +208,10 @@ impl From<native_tls::Error> for SqlError {
         SqlError::ConnectionError(e.into())
     }
 }
+
+#[cfg(feature = "mysql")]
+impl From<mysql_client::error::Error> for SqlError {
+    fn from(e: mysql_client::error::Error) -> SqlError {
+        SqlError::ConnectionError(e.into())
+    }
+}

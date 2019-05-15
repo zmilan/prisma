@@ -288,6 +288,12 @@ impl From<i64> for GraphqlId {
     }
 }
 
+impl From<u64> for GraphqlId {
+    fn from(id: u64) -> Self {
+        GraphqlId::Int(id as usize)
+    }
+}
+
 impl From<Uuid> for GraphqlId {
     fn from(uuid: Uuid) -> Self {
         GraphqlId::UUID(uuid)

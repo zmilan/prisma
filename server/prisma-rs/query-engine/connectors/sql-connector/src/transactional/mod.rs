@@ -14,10 +14,20 @@ use prisma_query::ast::*;
 use serde_json::Value;
 use std::{convert::TryFrom, sync::Arc};
 
+#[derive(Clone, Copy, PartialEq, Debug)]
+pub enum DatabaseType {
+    PostgreSQL,
+    Sqlite,
+    Mysql,
+}
+
 /// A `Transactional` presents a database able to spawn transactions, execute
 /// queries in the transaction and commit the results to the database or do a
 /// rollback in case of an error.
 pub trait Transactional {
+    /// For query optimization and other small differing purposes.
+    const DATABASE_TYPE: DatabaseType;
+
     /// Wrap a closure into a transaction. All actions done through the
     /// `Transaction` are commited automatically, or rolled back in case of any
     /// error.

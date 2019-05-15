@@ -1,4 +1,9 @@
-use crate::{database::SqlDatabase, error::SqlError, query_builder::QueryBuilder, Transactional};
+use crate::{
+    database::SqlDatabase,
+    error::SqlError,
+    query_builder::{QueryBuilder, RelatedNodesBaseQuery, RelatedNodesQueryBuilder, RelatedNodesWithRowNumber},
+    Transactional,
+};
 use connector::{error::ConnectorError, filter::NodeSelector, *};
 use itertools::Itertools;
 use prisma_models::*;
@@ -67,7 +72,17 @@ where
         let db_name = &from_field.model().internal_data_model().db_name;
         let idents = selected_fields.type_identifiers();
         let field_names = selected_fields.names();
-        let query = QueryBuilder::get_related_nodes(from_field, from_node_ids, query_arguments, selected_fields);
+
+        let query = {
+            let is_with_pagination = query_arguments.is_with_pagination();
+            let base_query = RelatedNodesBaseQuery::new(from_field, from_node_ids, query_arguments, selected_fields);
+
+            if is_with_pagination {
+                RelatedNodesWithRowNumber::with_pagination(base_query)
+            } else {
+                RelatedNodesWithRowNumber::without_pagination(base_query)
+            }
+        };
 
         let nodes: ConnectorResult<Vec<Node>> = self
             .executor

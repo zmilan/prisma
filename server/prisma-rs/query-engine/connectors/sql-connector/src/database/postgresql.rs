@@ -1,5 +1,6 @@
 use crate::{
-    error::SqlError, MutationBuilder, RawQuery, SqlId, SqlResult, SqlRow, ToSqlRow, Transaction, Transactional,
+    error::SqlError, DatabaseType, MutationBuilder, RawQuery, SqlId, SqlResult, SqlRow, ToSqlRow, Transaction,
+    Transactional,
 };
 use chrono::{DateTime, NaiveDateTime, Utc};
 use connector::{error::*, ConnectorResult};
@@ -79,6 +80,8 @@ impl TryFrom<&ConnectionStringConfig> for PostgreSql {
 }
 
 impl Transactional for PostgreSql {
+    const DATABASE_TYPE: DatabaseType = DatabaseType::PostgreSQL;
+
     fn with_transaction<F, T>(&self, _: &str, f: F) -> SqlResult<T>
     where
         F: FnOnce(&mut Transaction) -> SqlResult<T>,

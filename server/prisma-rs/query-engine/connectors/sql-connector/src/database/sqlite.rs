@@ -1,5 +1,5 @@
-use crate::{MutationBuilder, RawQuery, SqlId, SqlResult, SqlRow, ToSqlRow, Transaction, Transactional};
-use chrono::{DateTime, Utc, NaiveDateTime};
+use crate::{DatabaseType, MutationBuilder, RawQuery, SqlId, SqlResult, SqlRow, ToSqlRow, Transaction, Transactional};
+use chrono::{DateTime, NaiveDateTime, Utc};
 use prisma_models::{GraphqlId, PrismaValue, ProjectRef, TypeIdentifier};
 use prisma_query::{
     ast::{Query, Select},
@@ -25,6 +25,8 @@ pub struct Sqlite {
 }
 
 impl Transactional for Sqlite {
+    const DATABASE_TYPE: DatabaseType = DatabaseType::Sqlite;
+
     fn with_transaction<F, T>(&self, db: &str, f: F) -> SqlResult<T>
     where
         F: FnOnce(&mut Transaction) -> SqlResult<T>,
